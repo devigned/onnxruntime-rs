@@ -30,9 +30,11 @@ tracing = "0.1"
 ureq = { version = "2.1", optional = true }
 
 [dev-dependencies]
-image = "0.23"
-test-env-log = { version = "0.2", default-features = false, features = ["trace"] }
-tracing-subscriber = "0.2"
+image = "0.24.6"
+test-log = { version = "0.2" }
+env_logger = "*"
+tracing = {version = "0.1", default-features = false}
+tracing-subscriber = {version = "0.3", default-features = false, features = ["env-filter", "fmt"]}
 ureq = "2.1"
 
 [features]
