@@ -92,6 +92,17 @@ The C++ example that uses the C API
 ([`C_Api_Sample.cpp`](https://github.com/microsoft/onnxruntime/blob/v1.3.1/csharp/test/Microsoft.ML.OnnxRuntime.EndToEndTests.Capi/C_Api_Sample.cpp))
 was ported to both the low level crate (`onnxruntime-sys`) and the high level on (`onnxruntime`).
 
+When using **Windows**, do not rely on having the DLL in the `Path` directory. Manually copy the ONNX DLLs into the target build folder. If not, an error similar to the following happens:
+
+```text
+The given version [15] is not supported, only version 1 to 10 is supported in this build.
+thread 'main' panicked at 'assertion failed: `(left != right)`
+  left: `0x0`,
+ right: `0x0`', onnxruntime-sys\examples\c_api_sample.rs:14:5
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+error: process didn't exit successfully: `target\debug\examples\c_api_sample.exe` (exit code: 101)
+```
+
 ### onnxruntime-sys
 
 To run this example ([`onnxruntime-sys/examples/c_api_sample.rs`](onnxruntime-sys/examples/c_api_sample.rs)):
