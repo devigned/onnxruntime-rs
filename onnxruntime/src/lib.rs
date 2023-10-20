@@ -499,9 +499,9 @@ impl<T: Utf8Data> TypeToTensorElementDataType for T {
 pub enum AllocatorType {
     // Invalid = sys::OrtAllocatorType::Invalid as i32,
     /// Device allocator
-    Device = sys::OrtAllocatorType_OrtDeviceAllocator as i32,
+    Device = sys::OrtAllocatorType_OrtDeviceAllocator,
     /// Arena allocator
-    Arena = sys::OrtAllocatorType_OrtArenaAllocator as i32,
+    Arena = sys::OrtAllocatorType_OrtArenaAllocator,
 }
 
 impl From<AllocatorType> for sys::OrtAllocatorType {
@@ -526,7 +526,7 @@ pub enum MemType {
     // CPUOutput = sys::OrtMemType::OrtMemTypeCPUOutput as i32,
     // CPU = sys::OrtMemType::OrtMemTypeCPU as i32,
     /// Default memory type
-    Default = sys::OrtMemType_OrtMemTypeDefault as i32,
+    Default = sys::OrtMemType_OrtMemTypeDefault,
 }
 
 impl From<MemType> for sys::OrtMemType {

@@ -177,7 +177,7 @@ fn main() {
         assert_ne!(num_dims, 0);
 
         println!("Input {} : num_dims={}", i, num_dims);
-        input_node_dims.resize_with(num_dims as usize, Default::default);
+        input_node_dims.resize_with(num_dims, Default::default);
         let status = unsafe {
             g_ort.as_ref().unwrap().GetDimensions.unwrap()(
                 tensor_info_ptr,
@@ -188,7 +188,7 @@ fn main() {
         CheckStatus(g_ort, status).unwrap();
 
         for j in 0..num_dims {
-            println!("Input {} : dim {}={}", i, j, input_node_dims[j as usize]);
+            println!("Input {} : dim {}={}", i, j, input_node_dims[j]);
         }
 
         unsafe { g_ort.as_ref().unwrap().ReleaseTypeInfo.unwrap()(typeinfo_ptr) };
@@ -286,12 +286,12 @@ fn main() {
     let input_node_names_ptr_ptr: *const *const i8 = input_node_names_ptr.as_ptr();
 
     let output_node_names_cstring: Vec<std::ffi::CString> = output_node_names
-        .into_iter()
+        .iter()
         .map(|n| std::ffi::CString::new(n.clone()).unwrap())
         .collect();
     let output_node_names_ptr: Vec<*const i8> = output_node_names_cstring
         .iter()
-        .map(|n| n.as_ptr() as *const i8)
+        .map(|n| n.as_ptr())
         .collect();
     let output_node_names_ptr_ptr: *const *const i8 = output_node_names_ptr.as_ptr();
 
