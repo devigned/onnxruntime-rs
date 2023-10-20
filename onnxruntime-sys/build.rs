@@ -165,7 +165,7 @@ fn extract_archive(filename: &Path, output: &Path) {
 }
 
 fn extract_tgz(filename: &Path, output: &Path) {
-    let file = fs::File::open(&filename).unwrap();
+    let file = fs::File::open(filename).unwrap();
     let buf = io::BufReader::new(file);
     let tar = flate2::read::GzDecoder::new(buf);
     let mut archive = tar::Archive::new(tar);
@@ -173,14 +173,14 @@ fn extract_tgz(filename: &Path, output: &Path) {
 }
 
 fn extract_zip(filename: &Path, outpath: &Path) {
-    let file = fs::File::open(&filename).unwrap();
+    let file = fs::File::open(filename).unwrap();
     let buf = io::BufReader::new(file);
     let mut archive = zip::ZipArchive::new(buf).unwrap();
     for i in 0..archive.len() {
         let mut file = archive.by_index(i).unwrap();
         #[allow(deprecated)]
         let outpath = outpath.join(file.sanitized_name());
-        if !(&*file.name()).ends_with('/') {
+        if !(file.name()).ends_with('/') {
             println!(
                 "File {} extracted to \"{}\" ({} bytes)",
                 i,
@@ -189,7 +189,7 @@ fn extract_zip(filename: &Path, outpath: &Path) {
             );
             if let Some(p) = outpath.parent() {
                 if !p.exists() {
-                    fs::create_dir_all(&p).unwrap();
+                    fs::create_dir_all(p).unwrap();
                 }
             }
             let mut outfile = fs::File::create(&outpath).unwrap();
@@ -314,10 +314,6 @@ struct Triplet {
 
 impl OnnxPrebuiltArchive for Triplet {
     fn as_onnx_str(&self) -> Cow<str> {
-        println!(
-            "Will!!: {:?}-{:?}-{:?}",
-            &self.os, &self.arch, &self.accelerator
-        );
         match (&self.os, &self.arch, &self.accelerator) {
             // onnxruntime-win-x86-1.15.0.zip
             // onnxruntime-win-arm-1.15.0.zip
