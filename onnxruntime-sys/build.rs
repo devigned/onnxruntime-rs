@@ -1,5 +1,7 @@
 #![allow(dead_code)]
 
+#[cfg(feature = "generate-bindings")]
+use bindgen::Formatter;
 use std::{
     borrow::Cow,
     env, fs,
@@ -7,8 +9,6 @@ use std::{
     path::{Path, PathBuf},
     str::FromStr,
 };
-#[cfg(feature = "generate-bindings")]
-use bindgen::Formatter;
 
 /// ONNX Runtime version
 ///

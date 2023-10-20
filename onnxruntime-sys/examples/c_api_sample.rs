@@ -42,10 +42,7 @@ fn main() {
             .as_ref()
             .unwrap()
             .SetSessionGraphOptimizationLevel
-            .unwrap()(
-            session_options_ptr,
-            GraphOptimizationLevel_ORT_ENABLE_BASIC,
-        )
+            .unwrap()(session_options_ptr, GraphOptimizationLevel_ORT_ENABLE_BASIC)
     };
 
     // Optionally add more execution providers via session_options
