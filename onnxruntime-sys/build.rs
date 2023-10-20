@@ -228,7 +228,7 @@ impl OnnxPrebuiltArchive for Architecture {
     fn as_onnx_str(&self) -> Cow<str> {
         match self {
             Architecture::X86 => Cow::from("x86"),
-            Architecture::X86_64 => Cow::from("x64"),
+            Architecture::X86_64 => Cow::from("x86_64"),
             Architecture::Arm => Cow::from("arm"),
             Architecture::Arm64 => Cow::from("arm64"),
         }
