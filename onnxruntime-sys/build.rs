@@ -204,6 +204,7 @@ trait OnnxPrebuiltArchive {
 
 #[derive(Debug)]
 enum Architecture {
+    X64,
     X86,
     X86_64,
     Arm,
@@ -215,6 +216,7 @@ impl FromStr for Architecture {
 
     fn from_str(s: &str) -> Result<Self, Self::Err> {
         match s.to_lowercase().as_str() {
+            "x64" => Ok(Architecture::X64),
             "x86" => Ok(Architecture::X86),
             "x86_64" => Ok(Architecture::X86_64),
             "arm" => Ok(Architecture::Arm),
@@ -227,6 +229,7 @@ impl FromStr for Architecture {
 impl OnnxPrebuiltArchive for Architecture {
     fn as_onnx_str(&self) -> Cow<str> {
         match self {
+            Architecture::X64 => Cow::from("x64"),
             Architecture::X86 => Cow::from("x86"),
             Architecture::X86_64 => Cow::from("x86_64"),
             Architecture::Arm => Cow::from("arm"),
@@ -320,10 +323,10 @@ impl OnnxPrebuiltArchive for Triplet {
             // onnxruntime-osx-x64-1.15.0.tgz
             // onnxruntime-osx-arm64-1.15.0.tgz
             (Os::Windows, Architecture::X86, Accelerator::None)
-            | (Os::Windows, Architecture::X86_64, Accelerator::None)
+            | (Os::Windows, Architecture::X64, Accelerator::None)
             | (Os::Windows, Architecture::Arm, Accelerator::None)
             | (Os::Windows, Architecture::Arm64, Accelerator::None)
-            | (Os::Linux, Architecture::X86_64, Accelerator::None)
+            | (Os::Linux, Architecture::X64, Accelerator::None)
             | (Os::MacOs, Architecture::X86_64, Accelerator::None)
             | (Os::MacOs, Architecture::Arm64, Accelerator::None) => Cow::from(format!(
                 "{}-{}",
