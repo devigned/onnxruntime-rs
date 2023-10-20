@@ -314,7 +314,10 @@ struct Triplet {
 
 impl OnnxPrebuiltArchive for Triplet {
     fn as_onnx_str(&self) -> Cow<str> {
-        println!("Will!!: {:?}-{:?}-{:?}", &self.os, &self.arch, &self.accelerator);
+        println!(
+            "Will!!: {:?}-{:?}-{:?}",
+            &self.os, &self.arch, &self.accelerator
+        );
         match (&self.os, &self.arch, &self.accelerator) {
             // onnxruntime-win-x86-1.15.0.zip
             // onnxruntime-win-arm-1.15.0.zip
