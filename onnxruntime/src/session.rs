@@ -404,10 +404,8 @@ impl<'a> Session<'a> {
             .map(|output| output.name.clone())
             .map(|n| CString::new(n).unwrap())
             .collect();
-        let output_names_ptr: Vec<*const i8> = output_names_cstring
-            .iter()
-            .map(|n| n.as_ptr())
-            .collect();
+        let output_names_ptr: Vec<*const i8> =
+            output_names_cstring.iter().map(|n| n.as_ptr()).collect();
 
         let mut output_tensor_extractors_ptrs: Vec<*mut sys::OrtValue> =
             vec![std::ptr::null_mut(); self.outputs.len()];
