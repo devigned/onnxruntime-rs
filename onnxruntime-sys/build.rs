@@ -314,6 +314,7 @@ struct Triplet {
 
 impl OnnxPrebuiltArchive for Triplet {
     fn as_onnx_str(&self) -> Cow<str> {
+        println!("Will!!: {:?}-{:?}-{:?}", &self.os, &self.arch, &self.accelerator);
         match (&self.os, &self.arch, &self.accelerator) {
             // onnxruntime-win-x86-1.15.0.zip
             // onnxruntime-win-arm-1.15.0.zip
@@ -343,7 +344,7 @@ impl OnnxPrebuiltArchive for Triplet {
                 "{}-{}-{}",
                 self.os.as_onnx_str(),
                 Architecture::X64.as_onnx_str(),
-                self.arch.as_onnx_str(),
+                self.accelerator.as_onnx_str(),
             )),
             // onnxruntime-linux-x64-gpu-1.15.0.tgz
             // Note how this one is inverted from the windows one above
