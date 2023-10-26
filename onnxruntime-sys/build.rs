@@ -52,8 +52,8 @@ fn main() {
     println!("Lib directory: {:?}", lib_dir);
 
     // Tell cargo to tell rustc to link onnxruntime shared library.
-    println!("cargo:rustc-link-lib=onnxruntime");
-    println!("cargo:rustc-link-search=native={}", lib_dir.display());
+    println!("cargo:rustc-link-lib=dylib=onnxruntime");
+    println!("cargo:rustc-link-search={}", lib_dir.display());
 
     println!("cargo:rerun-if-env-changed={}", ORT_ENV_STRATEGY);
     println!("cargo:rerun-if-env-changed={}", ORT_ENV_GPU);
@@ -398,6 +398,7 @@ fn prepare_libort_dir_prebuilt() -> PathBuf {
     let downloaded_file = out_dir.join(&prebuilt_archive);
 
     println!("cargo:rerun-if-changed={}", downloaded_file.display());
+    println!("cargo:rustc-link-search={}", out_dir.display());
 
     if !downloaded_file.exists() {
         println!("Creating directory {:?}", out_dir);
