@@ -151,6 +151,7 @@ pub mod tensor;
 // Re-export
 pub use error::{OrtApiError, OrtError, Result};
 use sys::OnnxEnumInt;
+use tracing::debug;
 
 // Re-export ndarray as it's part of the public API anyway
 pub use ndarray;
