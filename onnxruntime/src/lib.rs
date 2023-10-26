@@ -163,9 +163,7 @@ lazy_static! {
     static ref G_ORT_API: Arc<Mutex<AtomicPtr<sys::OrtApi>>> = {
         let base: *const sys::OrtApiBase = unsafe { sys::OrtGetApiBase() };
         assert_ne!(base, std::ptr::null());
-        let get_api: extern_system_fn!{ unsafe fn(u32) -> *const onnxruntime_sys::OrtApi } =
-            unsafe { (*base).GetApi.unwrap() };
-        let api: *const sys::OrtApi = unsafe { get_api(sys::ORT_API_VERSION) };
+        let api = unsafe{ (*base).GetApi.unwrap()(sys::ORT_API_VERSION) };
         Arc::new(Mutex::new(AtomicPtr::new(api as *mut sys::OrtApi)))
     };
 }
