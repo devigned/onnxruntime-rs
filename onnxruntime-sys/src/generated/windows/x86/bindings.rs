@@ -10,16 +10,13 @@ pub const _HAS_EXCEPTIONS: u32 = 1;
 pub const _STL_LANG: u32 = 0;
 pub const _HAS_CXX17: u32 = 0;
 pub const _HAS_CXX20: u32 = 0;
-pub const _HAS_CXX23: u32 = 0;
 pub const _HAS_NODISCARD: u32 = 0;
-pub const _ARM_WINAPI_PARTITION_DESKTOP_SDK_AVAILABLE: u32 = 1;
-pub const _CRT_BUILD_DESKTOP_APP: u32 = 1;
 pub const _ARGMAX: u32 = 100;
 pub const _CRT_INT_MAX: u32 = 2147483647;
 pub const _CRT_FUNCTIONS_REQUIRED: u32 = 1;
 pub const _CRT_HAS_CXX17: u32 = 0;
-pub const _CRT_HAS_C11: u32 = 1;
-pub const _CRT_INTERNAL_NONSTDC_NAMES: u32 = 1;
+pub const _ARM_WINAPI_PARTITION_DESKTOP_SDK_AVAILABLE: u32 = 1;
+pub const _CRT_BUILD_DESKTOP_APP: u32 = 1;
 pub const __STDC_SECURE_LIB__: u32 = 200411;
 pub const __GOT_SECURE_LIB__: u32 = 200411;
 pub const __STDC_WANT_SECURE_LIB__: u32 = 1;
@@ -167,7 +164,7 @@ pub const ETIMEDOUT: u32 = 138;
 pub const ETXTBSY: u32 = 139;
 pub const EWOULDBLOCK: u32 = 140;
 pub const _NLSCMPERROR: u32 = 2147483647;
-pub const ORT_API_VERSION: u32 = 15;
+pub const ORT_API_VERSION: u32 = 16;
 pub const __SAL_H_FULL_VER: u32 = 140050727;
 pub const __SPECSTRINGS_STRICT_LEVEL: u32 = 1;
 pub const __drv_typeConst: u32 = 0;
@@ -475,7 +472,21 @@ extern "C" {
         _Alignment: usize,
     ) -> *mut ::std::os::raw::c_void;
 }
-pub type max_align_t = f64;
+extern "C" {
+    pub fn _errno() -> *mut ::std::os::raw::c_int;
+}
+extern "C" {
+    pub fn _set_errno(_Value: ::std::os::raw::c_int) -> errno_t;
+}
+extern "C" {
+    pub fn _get_errno(_Value: *mut ::std::os::raw::c_int) -> errno_t;
+}
+extern "C" {
+    pub fn __threadid() -> ::std::os::raw::c_ulong;
+}
+extern "C" {
+    pub fn __threadhandle() -> usize;
+}
 pub type _CoreCrtSecureSearchSortCompareFunction = ::std::option::Option<
     unsafe extern "C" fn(
         arg1: *mut ::std::os::raw::c_void,
@@ -973,15 +984,6 @@ extern "C" {
 }
 extern "C" {
     pub fn _set_error_mode(_Mode: ::std::os::raw::c_int) -> ::std::os::raw::c_int;
-}
-extern "C" {
-    pub fn _errno() -> *mut ::std::os::raw::c_int;
-}
-extern "C" {
-    pub fn _set_errno(_Value: ::std::os::raw::c_int) -> errno_t;
-}
-extern "C" {
-    pub fn _get_errno(_Value: *mut ::std::os::raw::c_int) -> errno_t;
 }
 extern "C" {
     pub fn __doserrno() -> *mut ::std::os::raw::c_ulong;
@@ -2807,6 +2809,14 @@ pub const ONNXTensorElementDataType_ONNX_TENSOR_ELEMENT_DATA_TYPE_COMPLEX128:
     ONNXTensorElementDataType = 15;
 pub const ONNXTensorElementDataType_ONNX_TENSOR_ELEMENT_DATA_TYPE_BFLOAT16:
     ONNXTensorElementDataType = 16;
+pub const ONNXTensorElementDataType_ONNX_TENSOR_ELEMENT_DATA_TYPE_FLOAT8E4M3FN:
+    ONNXTensorElementDataType = 17;
+pub const ONNXTensorElementDataType_ONNX_TENSOR_ELEMENT_DATA_TYPE_FLOAT8E4M3FNUZ:
+    ONNXTensorElementDataType = 18;
+pub const ONNXTensorElementDataType_ONNX_TENSOR_ELEMENT_DATA_TYPE_FLOAT8E5M2:
+    ONNXTensorElementDataType = 19;
+pub const ONNXTensorElementDataType_ONNX_TENSOR_ELEMENT_DATA_TYPE_FLOAT8E5M2FNUZ:
+    ONNXTensorElementDataType = 20;
 #[doc = " Copied from TensorProto::DataType\n Currently, Ort doesn't support complex64, complex128"]
 pub type ONNXTensorElementDataType = ::std::os::raw::c_int;
 pub const ONNXType_ONNX_TYPE_UNKNOWN: ONNXType = 0;
@@ -3154,6 +3164,8 @@ pub struct OrtCUDAProviderOptions {
     pub tunable_op_enable: ::std::os::raw::c_int,
     #[doc = " \\brief Enable TunableOp for tuning.\n   Set it to 1/0 to enable/disable TunableOp tuning. Otherwise, it is disabled by default.\n   This option can be overriden by environment variable ORT_CUDA_TUNABLE_OP_TUNING_ENABLE."]
     pub tunable_op_tuning_enable: ::std::os::raw::c_int,
+    #[doc = " \\brief Max tuning duration time limit for each instance of TunableOp.\n   Defaults to 0 to disable the limit."]
+    pub tunable_op_max_tuning_duration_ms: ::std::os::raw::c_int,
 }
 #[test]
 fn bindgen_test_layout_OrtCUDAProviderOptions() {
@@ -3162,7 +3174,7 @@ fn bindgen_test_layout_OrtCUDAProviderOptions() {
     let ptr = UNINIT.as_ptr();
     assert_eq!(
         ::std::mem::size_of::<OrtCUDAProviderOptions>(),
-        40usize,
+        44usize,
         concat!("Size of: ", stringify!(OrtCUDAProviderOptions))
     );
     assert_eq!(
@@ -3270,6 +3282,18 @@ fn bindgen_test_layout_OrtCUDAProviderOptions() {
             stringify!(tunable_op_tuning_enable)
         )
     );
+    assert_eq!(
+        unsafe {
+            ::std::ptr::addr_of!((*ptr).tunable_op_max_tuning_duration_ms) as usize - ptr as usize
+        },
+        40usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(OrtCUDAProviderOptions),
+            "::",
+            stringify!(tunable_op_max_tuning_duration_ms)
+        )
+    );
 }
 #[doc = " \\brief ROCM Provider Options\n\n \\see OrtApi::SessionOptionsAppendExecutionProvider_ROCM"]
 #[repr(C)]
@@ -3295,6 +3319,8 @@ pub struct OrtROCMProviderOptions {
     pub tunable_op_enable: ::std::os::raw::c_int,
     #[doc = " \\brief Enable TunableOp for tuning.\n   Set it to 1/0 to enable/disable TunableOp tuning. Otherwise, it is disabled by default.\n   This option can be overriden by environment variable ORT_ROCM_TUNABLE_OP_TUNING_ENABLE."]
     pub tunable_op_tuning_enable: ::std::os::raw::c_int,
+    #[doc = " \\brief Max tuning duration time limit for each instance of TunableOp.\n   Defaults to 0 to disable the limit."]
+    pub tunable_op_max_tuning_duration_ms: ::std::os::raw::c_int,
 }
 #[test]
 fn bindgen_test_layout_OrtROCMProviderOptions() {
@@ -3303,7 +3329,7 @@ fn bindgen_test_layout_OrtROCMProviderOptions() {
     let ptr = UNINIT.as_ptr();
     assert_eq!(
         ::std::mem::size_of::<OrtROCMProviderOptions>(),
-        40usize,
+        44usize,
         concat!("Size of: ", stringify!(OrtROCMProviderOptions))
     );
     assert_eq!(
@@ -3411,6 +3437,18 @@ fn bindgen_test_layout_OrtROCMProviderOptions() {
             stringify!(OrtROCMProviderOptions),
             "::",
             stringify!(tunable_op_tuning_enable)
+        )
+    );
+    assert_eq!(
+        unsafe {
+            ::std::ptr::addr_of!((*ptr).tunable_op_max_tuning_duration_ms) as usize - ptr as usize
+        },
+        40usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(OrtROCMProviderOptions),
+            "::",
+            stringify!(tunable_op_max_tuning_duration_ms)
         )
     );
 }
@@ -3919,6 +3957,15 @@ pub type RegisterCustomOpsFn = ::std::option::Option<
         options: *mut OrtSessionOptions,
         api: *const OrtApiBase,
     ) -> *mut OrtStatus,
+>;
+#[doc = " \\brief Callback function for RunAsync\n\n \\param[in] user_data User specific data that passed back to the callback\n \\param[out] outputs On succeed, outputs host inference results, on error, the value will be nullptr\n \\param[out] num_outputs Number of outputs, on error, the value will be zero\n \\param[out] status On error, status will provide details"]
+pub type RunAsyncCallbackFn = ::std::option::Option<
+    unsafe extern "C" fn(
+        user_data: *mut ::std::os::raw::c_void,
+        outputs: *mut *mut OrtValue,
+        num_outputs: usize,
+        status: OrtStatusPtr,
+    ),
 >;
 #[doc = " \\brief The C API\n\n All C API functions are defined inside this structure as pointers to functions.\n Call OrtApiBase::GetApi to get a pointer to it\n\n \\nosubgrouping"]
 #[repr(C)]
@@ -5429,6 +5476,88 @@ pub struct OrtApi {
     #[doc = " \\brief Returns a null terminated string of the build info including git info and cxx flags\n\n \\return UTF-8 encoded version string. Do not deallocate the returned buffer.\n\n \\since Version 1.15."]
     pub GetBuildInfoString:
         ::std::option::Option<unsafe extern "stdcall" fn() -> *const ::std::os::raw::c_char>,
+    pub CreateROCMProviderOptions: ::std::option::Option<
+        unsafe extern "stdcall" fn(out: *mut *mut OrtROCMProviderOptions) -> OrtStatusPtr,
+    >,
+    pub UpdateROCMProviderOptions: ::std::option::Option<
+        unsafe extern "stdcall" fn(
+            rocm_options: *mut OrtROCMProviderOptions,
+            provider_options_keys: *const *const ::std::os::raw::c_char,
+            provider_options_values: *const *const ::std::os::raw::c_char,
+            num_keys: usize,
+        ) -> OrtStatusPtr,
+    >,
+    pub GetROCMProviderOptionsAsString: ::std::option::Option<
+        unsafe extern "stdcall" fn(
+            rocm_options: *const OrtROCMProviderOptions,
+            allocator: *mut OrtAllocator,
+            ptr: *mut *mut ::std::os::raw::c_char,
+        ) -> OrtStatusPtr,
+    >,
+    #[doc = " \\brief Release an ::OrtROCMProviderOptions\n\n \\note This is an exception in the naming convention of other Release* functions, as the name of the method does not have the V2 suffix, but the type does\n\n \\since Version 1.16."]
+    pub ReleaseROCMProviderOptions:
+        ::std::option::Option<unsafe extern "stdcall" fn(input: *mut OrtROCMProviderOptions)>,
+    pub CreateAndRegisterAllocatorV2: ::std::option::Option<
+        unsafe extern "stdcall" fn(
+            env: *mut OrtEnv,
+            provider_type: *const ::std::os::raw::c_char,
+            mem_info: *const OrtMemoryInfo,
+            arena_cfg: *const OrtArenaCfg,
+            provider_options_keys: *const *const ::std::os::raw::c_char,
+            provider_options_values: *const *const ::std::os::raw::c_char,
+            num_keys: usize,
+        ) -> OrtStatusPtr,
+    >,
+    pub RunAsync: ::std::option::Option<
+        unsafe extern "stdcall" fn(
+            session: *mut OrtSession,
+            run_options: *const OrtRunOptions,
+            input_names: *const *const ::std::os::raw::c_char,
+            input: *const *const OrtValue,
+            input_len: usize,
+            output_names: *const *const ::std::os::raw::c_char,
+            output_names_len: usize,
+            output: *mut *mut OrtValue,
+            run_async_callback: RunAsyncCallbackFn,
+            user_data: *mut ::std::os::raw::c_void,
+        ) -> OrtStatusPtr,
+    >,
+    pub UpdateTensorRTProviderOptionsWithValue: ::std::option::Option<
+        unsafe extern "stdcall" fn(
+            tensorrt_options: *mut OrtTensorRTProviderOptionsV2,
+            key: *const ::std::os::raw::c_char,
+            value: *mut ::std::os::raw::c_void,
+        ) -> OrtStatusPtr,
+    >,
+    pub GetTensorRTProviderOptionsByName: ::std::option::Option<
+        unsafe extern "stdcall" fn(
+            tensorrt_options: *const OrtTensorRTProviderOptionsV2,
+            key: *const ::std::os::raw::c_char,
+            ptr: *mut *mut ::std::os::raw::c_void,
+        ) -> OrtStatusPtr,
+    >,
+    pub UpdateCUDAProviderOptionsWithValue: ::std::option::Option<
+        unsafe extern "stdcall" fn(
+            cuda_options: *mut OrtCUDAProviderOptionsV2,
+            key: *const ::std::os::raw::c_char,
+            value: *mut ::std::os::raw::c_void,
+        ) -> OrtStatusPtr,
+    >,
+    pub GetCUDAProviderOptionsByName: ::std::option::Option<
+        unsafe extern "stdcall" fn(
+            cuda_options: *const OrtCUDAProviderOptionsV2,
+            key: *const ::std::os::raw::c_char,
+            ptr: *mut *mut ::std::os::raw::c_void,
+        ) -> OrtStatusPtr,
+    >,
+    pub KernelContext_GetResource: ::std::option::Option<
+        unsafe extern "stdcall" fn(
+            context: *const OrtKernelContext,
+            resouce_version: ::std::os::raw::c_int,
+            resource_id: ::std::os::raw::c_int,
+            resource: *mut *mut ::std::os::raw::c_void,
+        ) -> OrtStatusPtr,
+    >,
 }
 #[test]
 fn bindgen_test_layout_OrtApi() {
@@ -5436,7 +5565,7 @@ fn bindgen_test_layout_OrtApi() {
     let ptr = UNINIT.as_ptr();
     assert_eq!(
         ::std::mem::size_of::<OrtApi>(),
-        1020usize,
+        1064usize,
         concat!("Size of: ", stringify!(OrtApi))
     );
     assert_eq!(
@@ -8153,6 +8282,129 @@ fn bindgen_test_layout_OrtApi() {
             stringify!(GetBuildInfoString)
         )
     );
+    assert_eq!(
+        unsafe { ::std::ptr::addr_of!((*ptr).CreateROCMProviderOptions) as usize - ptr as usize },
+        1020usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(OrtApi),
+            "::",
+            stringify!(CreateROCMProviderOptions)
+        )
+    );
+    assert_eq!(
+        unsafe { ::std::ptr::addr_of!((*ptr).UpdateROCMProviderOptions) as usize - ptr as usize },
+        1024usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(OrtApi),
+            "::",
+            stringify!(UpdateROCMProviderOptions)
+        )
+    );
+    assert_eq!(
+        unsafe {
+            ::std::ptr::addr_of!((*ptr).GetROCMProviderOptionsAsString) as usize - ptr as usize
+        },
+        1028usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(OrtApi),
+            "::",
+            stringify!(GetROCMProviderOptionsAsString)
+        )
+    );
+    assert_eq!(
+        unsafe { ::std::ptr::addr_of!((*ptr).ReleaseROCMProviderOptions) as usize - ptr as usize },
+        1032usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(OrtApi),
+            "::",
+            stringify!(ReleaseROCMProviderOptions)
+        )
+    );
+    assert_eq!(
+        unsafe {
+            ::std::ptr::addr_of!((*ptr).CreateAndRegisterAllocatorV2) as usize - ptr as usize
+        },
+        1036usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(OrtApi),
+            "::",
+            stringify!(CreateAndRegisterAllocatorV2)
+        )
+    );
+    assert_eq!(
+        unsafe { ::std::ptr::addr_of!((*ptr).RunAsync) as usize - ptr as usize },
+        1040usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(OrtApi),
+            "::",
+            stringify!(RunAsync)
+        )
+    );
+    assert_eq!(
+        unsafe {
+            ::std::ptr::addr_of!((*ptr).UpdateTensorRTProviderOptionsWithValue) as usize
+                - ptr as usize
+        },
+        1044usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(OrtApi),
+            "::",
+            stringify!(UpdateTensorRTProviderOptionsWithValue)
+        )
+    );
+    assert_eq!(
+        unsafe {
+            ::std::ptr::addr_of!((*ptr).GetTensorRTProviderOptionsByName) as usize - ptr as usize
+        },
+        1048usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(OrtApi),
+            "::",
+            stringify!(GetTensorRTProviderOptionsByName)
+        )
+    );
+    assert_eq!(
+        unsafe {
+            ::std::ptr::addr_of!((*ptr).UpdateCUDAProviderOptionsWithValue) as usize - ptr as usize
+        },
+        1052usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(OrtApi),
+            "::",
+            stringify!(UpdateCUDAProviderOptionsWithValue)
+        )
+    );
+    assert_eq!(
+        unsafe {
+            ::std::ptr::addr_of!((*ptr).GetCUDAProviderOptionsByName) as usize - ptr as usize
+        },
+        1056usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(OrtApi),
+            "::",
+            stringify!(GetCUDAProviderOptionsByName)
+        )
+    );
+    assert_eq!(
+        unsafe { ::std::ptr::addr_of!((*ptr).KernelContext_GetResource) as usize - ptr as usize },
+        1060usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(OrtApi),
+            "::",
+            stringify!(KernelContext_GetResource)
+        )
+    );
 }
 pub const OrtCustomOpInputOutputCharacteristic_INPUT_OUTPUT_REQUIRED:
     OrtCustomOpInputOutputCharacteristic = 0;
@@ -8229,6 +8481,20 @@ pub struct OrtCustomOp {
     pub GetVariadicOutputHomogeneity: ::std::option::Option<
         unsafe extern "stdcall" fn(op: *const OrtCustomOp) -> ::std::os::raw::c_int,
     >,
+    pub CreateKernelV2: ::std::option::Option<
+        unsafe extern "stdcall" fn(
+            op: *const OrtCustomOp,
+            api: *const OrtApi,
+            info: *const OrtKernelInfo,
+            kernel: *mut *mut ::std::os::raw::c_void,
+        ) -> OrtStatusPtr,
+    >,
+    pub KernelComputeV2: ::std::option::Option<
+        unsafe extern "stdcall" fn(
+            op_kernel: *mut ::std::os::raw::c_void,
+            context: *mut OrtKernelContext,
+        ) -> OrtStatusPtr,
+    >,
 }
 #[test]
 fn bindgen_test_layout_OrtCustomOp() {
@@ -8236,7 +8502,7 @@ fn bindgen_test_layout_OrtCustomOp() {
     let ptr = UNINIT.as_ptr();
     assert_eq!(
         ::std::mem::size_of::<OrtCustomOp>(),
-        68usize,
+        76usize,
         concat!("Size of: ", stringify!(OrtCustomOp))
     );
     assert_eq!(
@@ -8416,9 +8682,35 @@ fn bindgen_test_layout_OrtCustomOp() {
             stringify!(GetVariadicOutputHomogeneity)
         )
     );
+    assert_eq!(
+        unsafe { ::std::ptr::addr_of!((*ptr).CreateKernelV2) as usize - ptr as usize },
+        68usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(OrtCustomOp),
+            "::",
+            stringify!(CreateKernelV2)
+        )
+    );
+    assert_eq!(
+        unsafe { ::std::ptr::addr_of!((*ptr).KernelComputeV2) as usize - ptr as usize },
+        72usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(OrtCustomOp),
+            "::",
+            stringify!(KernelComputeV2)
+        )
+    );
 }
 extern "stdcall" {
     pub fn OrtSessionOptionsAppendExecutionProvider_CUDA(
+        options: *mut OrtSessionOptions,
+        device_id: ::std::os::raw::c_int,
+    ) -> OrtStatusPtr;
+}
+extern "stdcall" {
+    pub fn OrtSessionOptionsAppendExecutionProvider_ROCM(
         options: *mut OrtSessionOptions,
         device_id: ::std::os::raw::c_int,
     ) -> OrtStatusPtr;
