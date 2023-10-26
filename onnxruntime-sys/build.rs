@@ -15,7 +15,7 @@ use std::{
 /// WARNING: If version is changed, bindings for all platforms will have to be re-generated.
 ///          To do so, run this:
 ///              cargo build --package onnxruntime-sys --features generate-bindings
-const ORT_VERSION: &str = "1.15.0";
+const ORT_VERSION: &str = "1.16.1";
 
 /// Base Url from which to download pre-built releases/
 const ORT_RELEASE_BASE_URL: &str = "https://github.com/microsoft/onnxruntime/releases/download";
@@ -54,7 +54,7 @@ fn main() {
     // Tell cargo to tell rustc to link onnxruntime shared library.
     println!("cargo:rustc-link-lib=dylib=onnxruntime");
     println!("cargo:rustc-link-search={}", lib_dir.display());
-    
+
     let dir = env::var("CARGO_MANIFEST_DIR").unwrap();
     println!("cargo:rustc-link-search=native={}", Path::new(&dir).join("lib").display());
 
@@ -69,16 +69,6 @@ fn main() {
 fn generate_bindings(_include_dir: &Path) {
     println!("Bindings not generated automatically, using committed files instead.");
     println!("Enable with the 'generate-bindings' cargo feature.");
-
-    // NOTE: If bindings could not be be generated for Apple Sillicon M1, please uncomment the following
-    // let os = env::var("CARGO_CFG_TARGET_OS").expect("Unable to get TARGET_OS");
-    // let arch = env::var("CARGO_CFG_TARGET_ARCH").expect("Unable to get TARGET_ARCH");
-    // if os == "macos" && arch == "aarch64" {
-    //     panic!(
-    //         "OnnxRuntime {} bindings for Apple M1 are not available",
-    //         ORT_VERSION
-    //     );
-    // }
 }
 
 #[cfg(feature = "generate-bindings")]
@@ -318,11 +308,11 @@ struct Triplet {
 impl OnnxPrebuiltArchive for Triplet {
     fn as_onnx_str(&self) -> Cow<str> {
         match (&self.os, &self.arch, &self.accelerator) {
-            // onnxruntime-win-x86-1.15.0.zip
-            // onnxruntime-win-arm-1.15.0.zip
-            // onnxruntime-win-arm64-1.15.0.zip
-            // onnxruntime-osx-x64_86-1.15.0.tgz
-            // onnxruntime-osx-arm64-1.15.0.tgz
+            // onnxruntime-win-x86-1.16.1.zip
+            // onnxruntime-win-arm-1.16.1.zip
+            // onnxruntime-win-arm64-1.16.1.zip
+            // onnxruntime-osx-x64_86-1.16.1.tgz
+            // onnxruntime-osx-arm64-1.16.1.tgz
             (Os::Windows, Architecture::X86, Accelerator::None)
             | (Os::Windows, Architecture::Arm, Accelerator::None)
             | (Os::Windows, Architecture::Arm64, Accelerator::None)
@@ -332,15 +322,15 @@ impl OnnxPrebuiltArchive for Triplet {
                 self.os.as_onnx_str(),
                 self.arch.as_onnx_str()
             )),
-            // onnxruntime-win-x64-1.15.0.zip
-            // onnxruntime-linux-x64-1.15.0.tgz
+            // onnxruntime-win-x64-1.16.1.zip
+            // onnxruntime-linux-x64-1.16.1.tgz
             (Os::Windows, Architecture::X86_64, Accelerator::None)
             | (Os::Linux, Architecture::X86_64, Accelerator::None) => Cow::from(format!(
                 "{}-{}",
                 self.os.as_onnx_str(),
                 Architecture::X64.as_onnx_str(),
             )),
-            // onnxruntime-win-gpu-x64-1.15.0.zip
+            // onnxruntime-win-gpu-x64-1.16.1.zip
             // Note how this one is inverted from the linux one next
             (Os::Windows, Architecture::X86_64, Accelerator::Gpu) => Cow::from(format!(
                 "{}-{}-{}",
@@ -348,7 +338,7 @@ impl OnnxPrebuiltArchive for Triplet {
                 Architecture::X64.as_onnx_str(),
                 self.accelerator.as_onnx_str(),
             )),
-            // onnxruntime-linux-x64-gpu-1.15.0.tgz
+            // onnxruntime-linux-x64-gpu-1.16.1.tgz
             // Note how this one is inverted from the windows one above
             (Os::Linux, Architecture::X86_64, Accelerator::Gpu) => Cow::from(format!(
                 "{}-{}-{}",

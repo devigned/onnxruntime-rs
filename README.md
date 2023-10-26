@@ -232,18 +232,18 @@ Then on each platform build with the proper feature flag:
 Prepare the container:
 
 ```sh
-❯ docker run -it --rm --name rustbuilder -v "$PWD":/usr/src/myapp -w /usr/src/myapp rust:1.50.0 /bin/bash
-❯ apt-get update
-❯ apt-get install clang
-❯ rustup component add rustfmt
+docker run -it --name rustbuilder -v "$PWD":/usr/src/myapp -w /usr/src/myapp rust:1.72.0 /bin/bash
+apt-get update
+apt-get install clang -y
+rustup component add rustfmt
 ```
 
 Generate the bindings:
 
 ```sh
-❯ docker exec -it --user "$(id -u)":"$(id -g)" rustbuilder /bin/bash
-❯ cd onnxruntime-sys
-❯ cargo build --features generate-bindings
+docker exec -it --user "$(id -u)":"$(id -g)" rustbuilder /bin/bash
+cd onnxruntime-sys
+cargo build --features generate-bindings
 ```
 
 ### Generating Bindings for Windows With Vagrant

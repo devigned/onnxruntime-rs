@@ -83,10 +83,11 @@ where
 pub const __API_TO_BE_DEPRECATED: u32 = 100000;
 pub const __API_TO_BE_DEPRECATED_MACOS: u32 = 100000;
 pub const __API_TO_BE_DEPRECATED_IOS: u32 = 100000;
-pub const __API_TO_BE_DEPRECATED_TVOS: u32 = 100000;
-pub const __API_TO_BE_DEPRECATED_WATCHOS: u32 = 100000;
 pub const __API_TO_BE_DEPRECATED_MACCATALYST: u32 = 100000;
+pub const __API_TO_BE_DEPRECATED_WATCHOS: u32 = 100000;
+pub const __API_TO_BE_DEPRECATED_TVOS: u32 = 100000;
 pub const __API_TO_BE_DEPRECATED_DRIVERKIT: u32 = 100000;
+pub const __API_TO_BE_DEPRECATED_XROS: u32 = 100000;
 pub const __MAC_10_0: u32 = 1000;
 pub const __MAC_10_1: u32 = 1010;
 pub const __MAC_10_2: u32 = 1020;
@@ -115,6 +116,7 @@ pub const __MAC_10_13_4: u32 = 101304;
 pub const __MAC_10_14: u32 = 101400;
 pub const __MAC_10_14_1: u32 = 101401;
 pub const __MAC_10_14_4: u32 = 101404;
+pub const __MAC_10_14_5: u32 = 101405;
 pub const __MAC_10_14_6: u32 = 101406;
 pub const __MAC_10_15: u32 = 101500;
 pub const __MAC_10_15_1: u32 = 101501;
@@ -130,10 +132,14 @@ pub const __MAC_12_0: u32 = 120000;
 pub const __MAC_12_1: u32 = 120100;
 pub const __MAC_12_2: u32 = 120200;
 pub const __MAC_12_3: u32 = 120300;
+pub const __MAC_12_4: u32 = 120400;
+pub const __MAC_12_5: u32 = 120500;
 pub const __MAC_13_0: u32 = 130000;
 pub const __MAC_13_1: u32 = 130100;
 pub const __MAC_13_2: u32 = 130200;
 pub const __MAC_13_3: u32 = 130300;
+pub const __MAC_13_4: u32 = 130400;
+pub const __MAC_14_0: u32 = 140000;
 pub const __IPHONE_2_0: u32 = 20000;
 pub const __IPHONE_2_1: u32 = 20100;
 pub const __IPHONE_2_2: u32 = 20200;
@@ -186,6 +192,7 @@ pub const __IPHONE_14_1: u32 = 140100;
 pub const __IPHONE_14_2: u32 = 140200;
 pub const __IPHONE_14_3: u32 = 140300;
 pub const __IPHONE_14_5: u32 = 140500;
+pub const __IPHONE_14_4: u32 = 140400;
 pub const __IPHONE_14_6: u32 = 140600;
 pub const __IPHONE_14_7: u32 = 140700;
 pub const __IPHONE_14_8: u32 = 140800;
@@ -194,11 +201,55 @@ pub const __IPHONE_15_1: u32 = 150100;
 pub const __IPHONE_15_2: u32 = 150200;
 pub const __IPHONE_15_3: u32 = 150300;
 pub const __IPHONE_15_4: u32 = 150400;
+pub const __IPHONE_15_5: u32 = 150500;
+pub const __IPHONE_15_6: u32 = 150600;
 pub const __IPHONE_16_0: u32 = 160000;
 pub const __IPHONE_16_1: u32 = 160100;
 pub const __IPHONE_16_2: u32 = 160200;
 pub const __IPHONE_16_3: u32 = 160300;
 pub const __IPHONE_16_4: u32 = 160400;
+pub const __IPHONE_16_5: u32 = 160500;
+pub const __IPHONE_17_0: u32 = 170000;
+pub const __WATCHOS_1_0: u32 = 10000;
+pub const __WATCHOS_2_0: u32 = 20000;
+pub const __WATCHOS_2_1: u32 = 20100;
+pub const __WATCHOS_2_2: u32 = 20200;
+pub const __WATCHOS_3_0: u32 = 30000;
+pub const __WATCHOS_3_1: u32 = 30100;
+pub const __WATCHOS_3_1_1: u32 = 30101;
+pub const __WATCHOS_3_2: u32 = 30200;
+pub const __WATCHOS_4_0: u32 = 40000;
+pub const __WATCHOS_4_1: u32 = 40100;
+pub const __WATCHOS_4_2: u32 = 40200;
+pub const __WATCHOS_4_3: u32 = 40300;
+pub const __WATCHOS_5_0: u32 = 50000;
+pub const __WATCHOS_5_1: u32 = 50100;
+pub const __WATCHOS_5_2: u32 = 50200;
+pub const __WATCHOS_5_3: u32 = 50300;
+pub const __WATCHOS_6_0: u32 = 60000;
+pub const __WATCHOS_6_1: u32 = 60100;
+pub const __WATCHOS_6_2: u32 = 60200;
+pub const __WATCHOS_7_0: u32 = 70000;
+pub const __WATCHOS_7_1: u32 = 70100;
+pub const __WATCHOS_7_2: u32 = 70200;
+pub const __WATCHOS_7_3: u32 = 70300;
+pub const __WATCHOS_7_4: u32 = 70400;
+pub const __WATCHOS_7_5: u32 = 70500;
+pub const __WATCHOS_7_6: u32 = 70600;
+pub const __WATCHOS_8_0: u32 = 80000;
+pub const __WATCHOS_8_1: u32 = 80100;
+pub const __WATCHOS_8_3: u32 = 80300;
+pub const __WATCHOS_8_4: u32 = 80400;
+pub const __WATCHOS_8_5: u32 = 80500;
+pub const __WATCHOS_8_6: u32 = 80600;
+pub const __WATCHOS_8_7: u32 = 80700;
+pub const __WATCHOS_9_0: u32 = 90000;
+pub const __WATCHOS_9_1: u32 = 90100;
+pub const __WATCHOS_9_2: u32 = 90200;
+pub const __WATCHOS_9_3: u32 = 90300;
+pub const __WATCHOS_9_4: u32 = 90400;
+pub const __WATCHOS_9_5: u32 = 90500;
+pub const __WATCHOS_10_0: u32 = 100000;
 pub const __TVOS_9_0: u32 = 90000;
 pub const __TVOS_9_1: u32 = 90100;
 pub const __TVOS_9_2: u32 = 90200;
@@ -232,47 +283,43 @@ pub const __TVOS_15_1: u32 = 150100;
 pub const __TVOS_15_2: u32 = 150200;
 pub const __TVOS_15_3: u32 = 150300;
 pub const __TVOS_15_4: u32 = 150400;
+pub const __TVOS_15_5: u32 = 150500;
+pub const __TVOS_15_6: u32 = 150600;
 pub const __TVOS_16_0: u32 = 160000;
 pub const __TVOS_16_1: u32 = 160100;
 pub const __TVOS_16_2: u32 = 160200;
 pub const __TVOS_16_3: u32 = 160300;
 pub const __TVOS_16_4: u32 = 160400;
-pub const __WATCHOS_1_0: u32 = 10000;
-pub const __WATCHOS_2_0: u32 = 20000;
-pub const __WATCHOS_2_1: u32 = 20100;
-pub const __WATCHOS_2_2: u32 = 20200;
-pub const __WATCHOS_3_0: u32 = 30000;
-pub const __WATCHOS_3_1: u32 = 30100;
-pub const __WATCHOS_3_1_1: u32 = 30101;
-pub const __WATCHOS_3_2: u32 = 30200;
-pub const __WATCHOS_4_0: u32 = 40000;
-pub const __WATCHOS_4_1: u32 = 40100;
-pub const __WATCHOS_4_2: u32 = 40200;
-pub const __WATCHOS_4_3: u32 = 40300;
-pub const __WATCHOS_5_0: u32 = 50000;
-pub const __WATCHOS_5_1: u32 = 50100;
-pub const __WATCHOS_5_2: u32 = 50200;
-pub const __WATCHOS_5_3: u32 = 50300;
-pub const __WATCHOS_6_0: u32 = 60000;
-pub const __WATCHOS_6_1: u32 = 60100;
-pub const __WATCHOS_6_2: u32 = 60200;
-pub const __WATCHOS_7_0: u32 = 70000;
-pub const __WATCHOS_7_1: u32 = 70100;
-pub const __WATCHOS_7_2: u32 = 70200;
-pub const __WATCHOS_7_3: u32 = 70300;
-pub const __WATCHOS_7_4: u32 = 70400;
-pub const __WATCHOS_7_5: u32 = 70500;
-pub const __WATCHOS_7_6: u32 = 70600;
-pub const __WATCHOS_8_0: u32 = 80000;
-pub const __WATCHOS_8_1: u32 = 80100;
-pub const __WATCHOS_8_3: u32 = 80300;
-pub const __WATCHOS_8_4: u32 = 80400;
-pub const __WATCHOS_8_5: u32 = 80500;
-pub const __WATCHOS_9_0: u32 = 90000;
-pub const __WATCHOS_9_1: u32 = 90100;
-pub const __WATCHOS_9_2: u32 = 90200;
-pub const __WATCHOS_9_3: u32 = 90300;
-pub const __WATCHOS_9_4: u32 = 90400;
+pub const __TVOS_16_5: u32 = 160500;
+pub const __TVOS_17_0: u32 = 170000;
+pub const __BRIDGEOS_2_0: u32 = 20000;
+pub const __BRIDGEOS_3_0: u32 = 30000;
+pub const __BRIDGEOS_3_1: u32 = 30100;
+pub const __BRIDGEOS_3_4: u32 = 30400;
+pub const __BRIDGEOS_4_0: u32 = 40000;
+pub const __BRIDGEOS_4_1: u32 = 40100;
+pub const __BRIDGEOS_5_0: u32 = 50000;
+pub const __BRIDGEOS_5_1: u32 = 50100;
+pub const __BRIDGEOS_5_3: u32 = 50300;
+pub const __BRIDGEOS_6_0: u32 = 60000;
+pub const __BRIDGEOS_6_2: u32 = 60200;
+pub const __BRIDGEOS_6_4: u32 = 60400;
+pub const __BRIDGEOS_6_5: u32 = 60500;
+pub const __BRIDGEOS_6_6: u32 = 60600;
+pub const __BRIDGEOS_7_0: u32 = 70000;
+pub const __BRIDGEOS_7_1: u32 = 70100;
+pub const __BRIDGEOS_7_2: u32 = 70200;
+pub const __BRIDGEOS_7_3: u32 = 70300;
+pub const __BRIDGEOS_7_4: u32 = 70400;
+pub const __BRIDGEOS_8_0: u32 = 80000;
+pub const __DRIVERKIT_19_0: u32 = 190000;
+pub const __DRIVERKIT_20_0: u32 = 200000;
+pub const __DRIVERKIT_21_0: u32 = 210000;
+pub const __DRIVERKIT_22_0: u32 = 220000;
+pub const __DRIVERKIT_22_4: u32 = 220400;
+pub const __DRIVERKIT_22_5: u32 = 220500;
+pub const __DRIVERKIT_23_0: u32 = 230000;
+pub const __XROS_1_0: u32 = 10000;
 pub const MAC_OS_X_VERSION_10_0: u32 = 1000;
 pub const MAC_OS_X_VERSION_10_1: u32 = 1010;
 pub const MAC_OS_X_VERSION_10_2: u32 = 1020;
@@ -301,17 +348,31 @@ pub const MAC_OS_X_VERSION_10_13_4: u32 = 101304;
 pub const MAC_OS_X_VERSION_10_14: u32 = 101400;
 pub const MAC_OS_X_VERSION_10_14_1: u32 = 101401;
 pub const MAC_OS_X_VERSION_10_14_4: u32 = 101404;
+pub const MAC_OS_X_VERSION_10_14_5: u32 = 101405;
 pub const MAC_OS_X_VERSION_10_14_6: u32 = 101406;
 pub const MAC_OS_X_VERSION_10_15: u32 = 101500;
 pub const MAC_OS_X_VERSION_10_15_1: u32 = 101501;
+pub const MAC_OS_X_VERSION_10_15_4: u32 = 101504;
 pub const MAC_OS_X_VERSION_10_16: u32 = 101600;
 pub const MAC_OS_VERSION_11_0: u32 = 110000;
+pub const MAC_OS_VERSION_11_1: u32 = 110100;
+pub const MAC_OS_VERSION_11_3: u32 = 110300;
+pub const MAC_OS_VERSION_11_4: u32 = 110400;
+pub const MAC_OS_VERSION_11_5: u32 = 110500;
+pub const MAC_OS_VERSION_11_6: u32 = 110600;
 pub const MAC_OS_VERSION_12_0: u32 = 120000;
+pub const MAC_OS_VERSION_12_1: u32 = 120100;
+pub const MAC_OS_VERSION_12_2: u32 = 120200;
+pub const MAC_OS_VERSION_12_3: u32 = 120300;
+pub const MAC_OS_VERSION_12_4: u32 = 120400;
+pub const MAC_OS_VERSION_12_5: u32 = 120500;
 pub const MAC_OS_VERSION_13_0: u32 = 130000;
-pub const __DRIVERKIT_19_0: u32 = 190000;
-pub const __DRIVERKIT_20_0: u32 = 200000;
-pub const __DRIVERKIT_21_0: u32 = 210000;
-pub const __MAC_OS_X_VERSION_MAX_ALLOWED: u32 = 130300;
+pub const MAC_OS_VERSION_13_1: u32 = 130100;
+pub const MAC_OS_VERSION_13_2: u32 = 130200;
+pub const MAC_OS_VERSION_13_3: u32 = 130300;
+pub const MAC_OS_VERSION_13_4: u32 = 130400;
+pub const MAC_OS_VERSION_14_0: u32 = 140000;
+pub const __MAC_OS_X_VERSION_MAX_ALLOWED: u32 = 140000;
 pub const __ENABLE_LEGACY_MAC_AVAILABILITY: u32 = 1;
 pub const __DARWIN_ONLY_64_BIT_INO_T: u32 = 1;
 pub const __DARWIN_ONLY_UNIX_CONFORMANCE: u32 = 1;
@@ -579,6 +640,8 @@ pub const IOPOL_VFS_ALLOW_LOW_SPACE_WRITES_OFF: u32 = 0;
 pub const IOPOL_VFS_ALLOW_LOW_SPACE_WRITES_ON: u32 = 1;
 pub const IOPOL_VFS_DISALLOW_RW_FOR_O_EVTONLY_DEFAULT: u32 = 0;
 pub const IOPOL_VFS_DISALLOW_RW_FOR_O_EVTONLY_ON: u32 = 1;
+pub const IOPOL_VFS_NOCACHE_WRITE_FS_BLKSIZE_DEFAULT: u32 = 0;
+pub const IOPOL_VFS_NOCACHE_WRITE_FS_BLKSIZE_ON: u32 = 1;
 pub const WNOHANG: u32 = 1;
 pub const WUNTRACED: u32 = 2;
 pub const WCOREFLAG: u32 = 128;
@@ -604,7 +667,7 @@ pub const EXIT_SUCCESS: u32 = 0;
 pub const RAND_MAX: u32 = 2147483647;
 pub const _USE_FORTIFY_LEVEL: u32 = 2;
 pub const __HAS_FIXED_CHK_PROTOTYPES: u32 = 1;
-pub const ORT_API_VERSION: u32 = 15;
+pub const ORT_API_VERSION: u32 = 16;
 pub type __int8_t = ::std::os::raw::c_schar;
 pub type __uint8_t = ::std::os::raw::c_uchar;
 pub type __int16_t = ::std::os::raw::c_short;
@@ -5743,6 +5806,102 @@ fn bindgen_test_layout_lldiv_t() {
 extern "C" {
     pub static mut __mb_cur_max: ::std::os::raw::c_int;
 }
+pub type malloc_type_id_t = ::std::os::raw::c_ulonglong;
+extern "C" {
+    pub fn malloc_type_malloc(
+        size: usize,
+        type_id: malloc_type_id_t,
+    ) -> *mut ::std::os::raw::c_void;
+}
+extern "C" {
+    pub fn malloc_type_calloc(
+        count: usize,
+        size: usize,
+        type_id: malloc_type_id_t,
+    ) -> *mut ::std::os::raw::c_void;
+}
+extern "C" {
+    pub fn malloc_type_free(ptr: *mut ::std::os::raw::c_void, type_id: malloc_type_id_t);
+}
+extern "C" {
+    pub fn malloc_type_realloc(
+        ptr: *mut ::std::os::raw::c_void,
+        size: usize,
+        type_id: malloc_type_id_t,
+    ) -> *mut ::std::os::raw::c_void;
+}
+extern "C" {
+    pub fn malloc_type_valloc(
+        size: usize,
+        type_id: malloc_type_id_t,
+    ) -> *mut ::std::os::raw::c_void;
+}
+extern "C" {
+    pub fn malloc_type_aligned_alloc(
+        alignment: usize,
+        size: usize,
+        type_id: malloc_type_id_t,
+    ) -> *mut ::std::os::raw::c_void;
+}
+extern "C" {
+    pub fn malloc_type_posix_memalign(
+        memptr: *mut *mut ::std::os::raw::c_void,
+        alignment: usize,
+        size: usize,
+        type_id: malloc_type_id_t,
+    ) -> ::std::os::raw::c_int;
+}
+#[repr(C)]
+#[derive(Debug, Copy, Clone)]
+pub struct _malloc_zone_t {
+    _unused: [u8; 0],
+}
+pub type malloc_zone_t = _malloc_zone_t;
+extern "C" {
+    pub fn malloc_type_zone_malloc(
+        zone: *mut malloc_zone_t,
+        size: usize,
+        type_id: malloc_type_id_t,
+    ) -> *mut ::std::os::raw::c_void;
+}
+extern "C" {
+    pub fn malloc_type_zone_calloc(
+        zone: *mut malloc_zone_t,
+        count: usize,
+        size: usize,
+        type_id: malloc_type_id_t,
+    ) -> *mut ::std::os::raw::c_void;
+}
+extern "C" {
+    pub fn malloc_type_zone_free(
+        zone: *mut malloc_zone_t,
+        ptr: *mut ::std::os::raw::c_void,
+        type_id: malloc_type_id_t,
+    );
+}
+extern "C" {
+    pub fn malloc_type_zone_realloc(
+        zone: *mut malloc_zone_t,
+        ptr: *mut ::std::os::raw::c_void,
+        size: usize,
+        type_id: malloc_type_id_t,
+    ) -> *mut ::std::os::raw::c_void;
+}
+extern "C" {
+    pub fn malloc_type_zone_valloc(
+        zone: *mut malloc_zone_t,
+        size: usize,
+        type_id: malloc_type_id_t,
+    ) -> *mut ::std::os::raw::c_void;
+}
+extern "C" {
+    pub fn malloc_type_zone_memalign(
+        zone: *mut malloc_zone_t,
+        alignment: usize,
+        size: usize,
+        type_id: malloc_type_id_t,
+    ) -> *mut ::std::os::raw::c_void;
+}
 extern "C" {
     pub fn malloc(__size: ::std::os::raw::c_ulong) -> *mut ::std::os::raw::c_void;
 }
@@ -6705,6 +6864,14 @@ pub const ONNXTensorElementDataType_ONNX_TENSOR_ELEMENT_DATA_TYPE_COMPLEX128:
     ONNXTensorElementDataType = 15;
 pub const ONNXTensorElementDataType_ONNX_TENSOR_ELEMENT_DATA_TYPE_BFLOAT16:
     ONNXTensorElementDataType = 16;
+pub const ONNXTensorElementDataType_ONNX_TENSOR_ELEMENT_DATA_TYPE_FLOAT8E4M3FN:
+    ONNXTensorElementDataType = 17;
+pub const ONNXTensorElementDataType_ONNX_TENSOR_ELEMENT_DATA_TYPE_FLOAT8E4M3FNUZ:
+    ONNXTensorElementDataType = 18;
+pub const ONNXTensorElementDataType_ONNX_TENSOR_ELEMENT_DATA_TYPE_FLOAT8E5M2:
+    ONNXTensorElementDataType = 19;
+pub const ONNXTensorElementDataType_ONNX_TENSOR_ELEMENT_DATA_TYPE_FLOAT8E5M2FNUZ:
+    ONNXTensorElementDataType = 20;
 #[doc = " Copied from TensorProto::DataType\n Currently, Ort doesn't support complex64, complex128"]
 pub type ONNXTensorElementDataType = ::std::os::raw::c_uint;
 pub const ONNXType_ONNX_TYPE_UNKNOWN: ONNXType = 0;
@@ -7049,6 +7216,8 @@ pub struct OrtCUDAProviderOptions {
     pub tunable_op_enable: ::std::os::raw::c_int,
     #[doc = " \\brief Enable TunableOp for tuning.\n   Set it to 1/0 to enable/disable TunableOp tuning. Otherwise, it is disabled by default.\n   This option can be overriden by environment variable ORT_CUDA_TUNABLE_OP_TUNING_ENABLE."]
     pub tunable_op_tuning_enable: ::std::os::raw::c_int,
+    #[doc = " \\brief Max tuning duration time limit for each instance of TunableOp.\n   Defaults to 0 to disable the limit."]
+    pub tunable_op_max_tuning_duration_ms: ::std::os::raw::c_int,
 }
 #[test]
 fn bindgen_test_layout_OrtCUDAProviderOptions() {
@@ -7057,7 +7226,7 @@ fn bindgen_test_layout_OrtCUDAProviderOptions() {
     let ptr = UNINIT.as_ptr();
     assert_eq!(
         ::std::mem::size_of::<OrtCUDAProviderOptions>(),
-        56usize,
+        64usize,
         concat!("Size of: ", stringify!(OrtCUDAProviderOptions))
     );
     assert_eq!(
@@ -7165,6 +7334,18 @@ fn bindgen_test_layout_OrtCUDAProviderOptions() {
             stringify!(tunable_op_tuning_enable)
         )
     );
+    assert_eq!(
+        unsafe {
+            ::std::ptr::addr_of!((*ptr).tunable_op_max_tuning_duration_ms) as usize - ptr as usize
+        },
+        56usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(OrtCUDAProviderOptions),
+            "::",
+            stringify!(tunable_op_max_tuning_duration_ms)
+        )
+    );
 }
 #[doc = " \\brief ROCM Provider Options\n\n \\see OrtApi::SessionOptionsAppendExecutionProvider_ROCM"]
 #[repr(C)]
@@ -7190,6 +7371,8 @@ pub struct OrtROCMProviderOptions {
     pub tunable_op_enable: ::std::os::raw::c_int,
     #[doc = " \\brief Enable TunableOp for tuning.\n   Set it to 1/0 to enable/disable TunableOp tuning. Otherwise, it is disabled by default.\n   This option can be overriden by environment variable ORT_ROCM_TUNABLE_OP_TUNING_ENABLE."]
     pub tunable_op_tuning_enable: ::std::os::raw::c_int,
+    #[doc = " \\brief Max tuning duration time limit for each instance of TunableOp.\n   Defaults to 0 to disable the limit."]
+    pub tunable_op_max_tuning_duration_ms: ::std::os::raw::c_int,
 }
 #[test]
 fn bindgen_test_layout_OrtROCMProviderOptions() {
@@ -7198,7 +7381,7 @@ fn bindgen_test_layout_OrtROCMProviderOptions() {
     let ptr = UNINIT.as_ptr();
     assert_eq!(
         ::std::mem::size_of::<OrtROCMProviderOptions>(),
-        56usize,
+        64usize,
         concat!("Size of: ", stringify!(OrtROCMProviderOptions))
     );
     assert_eq!(
@@ -7306,6 +7489,18 @@ fn bindgen_test_layout_OrtROCMProviderOptions() {
             stringify!(OrtROCMProviderOptions),
             "::",
             stringify!(tunable_op_tuning_enable)
+        )
+    );
+    assert_eq!(
+        unsafe {
+            ::std::ptr::addr_of!((*ptr).tunable_op_max_tuning_duration_ms) as usize - ptr as usize
+        },
+        56usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(OrtROCMProviderOptions),
+            "::",
+            stringify!(tunable_op_max_tuning_duration_ms)
         )
     );
 }
@@ -7811,6 +8006,15 @@ pub type OrtCustomJoinThreadFn =
     ::std::option::Option<unsafe extern "C" fn(ort_custom_thread_handle: OrtCustomThreadHandle)>;
 pub type RegisterCustomOpsFn = ::std::option::Option<
     unsafe extern "C" fn(options: *mut OrtSessionOptions, api: *const OrtApiBase) -> *mut OrtStatus,
+>;
+#[doc = " \\brief Callback function for RunAsync\n\n \\param[in] user_data User specific data that passed back to the callback\n \\param[out] outputs On succeed, outputs host inference results, on error, the value will be nullptr\n \\param[out] num_outputs Number of outputs, on error, the value will be zero\n \\param[out] status On error, status will provide details"]
+pub type RunAsyncCallbackFn = ::std::option::Option<
+    unsafe extern "C" fn(
+        user_data: *mut ::std::os::raw::c_void,
+        outputs: *mut *mut OrtValue,
+        num_outputs: usize,
+        status: OrtStatusPtr,
+    ),
 >;
 #[doc = " \\brief The C API\n\n All C API functions are defined inside this structure as pointers to functions.\n Call OrtApiBase::GetApi to get a pointer to it\n\n \\nosubgrouping"]
 #[repr(C)]
@@ -9278,6 +9482,88 @@ pub struct OrtApi {
     #[doc = " \\brief Returns a null terminated string of the build info including git info and cxx flags\n\n \\return UTF-8 encoded version string. Do not deallocate the returned buffer.\n\n \\since Version 1.15."]
     pub GetBuildInfoString:
         ::std::option::Option<unsafe extern "C" fn() -> *const ::std::os::raw::c_char>,
+    pub CreateROCMProviderOptions: ::std::option::Option<
+        unsafe extern "C" fn(out: *mut *mut OrtROCMProviderOptions) -> OrtStatusPtr,
+    >,
+    pub UpdateROCMProviderOptions: ::std::option::Option<
+        unsafe extern "C" fn(
+            rocm_options: *mut OrtROCMProviderOptions,
+            provider_options_keys: *const *const ::std::os::raw::c_char,
+            provider_options_values: *const *const ::std::os::raw::c_char,
+            num_keys: usize,
+        ) -> OrtStatusPtr,
+    >,
+    pub GetROCMProviderOptionsAsString: ::std::option::Option<
+        unsafe extern "C" fn(
+            rocm_options: *const OrtROCMProviderOptions,
+            allocator: *mut OrtAllocator,
+            ptr: *mut *mut ::std::os::raw::c_char,
+        ) -> OrtStatusPtr,
+    >,
+    #[doc = " \\brief Release an ::OrtROCMProviderOptions\n\n \\note This is an exception in the naming convention of other Release* functions, as the name of the method does not have the V2 suffix, but the type does\n\n \\since Version 1.16."]
+    pub ReleaseROCMProviderOptions:
+        ::std::option::Option<unsafe extern "C" fn(input: *mut OrtROCMProviderOptions)>,
+    pub CreateAndRegisterAllocatorV2: ::std::option::Option<
+        unsafe extern "C" fn(
+            env: *mut OrtEnv,
+            provider_type: *const ::std::os::raw::c_char,
+            mem_info: *const OrtMemoryInfo,
+            arena_cfg: *const OrtArenaCfg,
+            provider_options_keys: *const *const ::std::os::raw::c_char,
+            provider_options_values: *const *const ::std::os::raw::c_char,
+            num_keys: usize,
+        ) -> OrtStatusPtr,
+    >,
+    pub RunAsync: ::std::option::Option<
+        unsafe extern "C" fn(
+            session: *mut OrtSession,
+            run_options: *const OrtRunOptions,
+            input_names: *const *const ::std::os::raw::c_char,
+            input: *const *const OrtValue,
+            input_len: usize,
+            output_names: *const *const ::std::os::raw::c_char,
+            output_names_len: usize,
+            output: *mut *mut OrtValue,
+            run_async_callback: RunAsyncCallbackFn,
+            user_data: *mut ::std::os::raw::c_void,
+        ) -> OrtStatusPtr,
+    >,
+    pub UpdateTensorRTProviderOptionsWithValue: ::std::option::Option<
+        unsafe extern "C" fn(
+            tensorrt_options: *mut OrtTensorRTProviderOptionsV2,
+            key: *const ::std::os::raw::c_char,
+            value: *mut ::std::os::raw::c_void,
+        ) -> OrtStatusPtr,
+    >,
+    pub GetTensorRTProviderOptionsByName: ::std::option::Option<
+        unsafe extern "C" fn(
+            tensorrt_options: *const OrtTensorRTProviderOptionsV2,
+            key: *const ::std::os::raw::c_char,
+            ptr: *mut *mut ::std::os::raw::c_void,
+        ) -> OrtStatusPtr,
+    >,
+    pub UpdateCUDAProviderOptionsWithValue: ::std::option::Option<
+        unsafe extern "C" fn(
+            cuda_options: *mut OrtCUDAProviderOptionsV2,
+            key: *const ::std::os::raw::c_char,
+            value: *mut ::std::os::raw::c_void,
+        ) -> OrtStatusPtr,
+    >,
+    pub GetCUDAProviderOptionsByName: ::std::option::Option<
+        unsafe extern "C" fn(
+            cuda_options: *const OrtCUDAProviderOptionsV2,
+            key: *const ::std::os::raw::c_char,
+            ptr: *mut *mut ::std::os::raw::c_void,
+        ) -> OrtStatusPtr,
+    >,
+    pub KernelContext_GetResource: ::std::option::Option<
+        unsafe extern "C" fn(
+            context: *const OrtKernelContext,
+            resouce_version: ::std::os::raw::c_int,
+            resource_id: ::std::os::raw::c_int,
+            resource: *mut *mut ::std::os::raw::c_void,
+        ) -> OrtStatusPtr,
+    >,
 }
 #[test]
 fn bindgen_test_layout_OrtApi() {
@@ -9285,7 +9571,7 @@ fn bindgen_test_layout_OrtApi() {
     let ptr = UNINIT.as_ptr();
     assert_eq!(
         ::std::mem::size_of::<OrtApi>(),
-        2040usize,
+        2128usize,
         concat!("Size of: ", stringify!(OrtApi))
     );
     assert_eq!(
@@ -12002,6 +12288,129 @@ fn bindgen_test_layout_OrtApi() {
             stringify!(GetBuildInfoString)
         )
     );
+    assert_eq!(
+        unsafe { ::std::ptr::addr_of!((*ptr).CreateROCMProviderOptions) as usize - ptr as usize },
+        2040usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(OrtApi),
+            "::",
+            stringify!(CreateROCMProviderOptions)
+        )
+    );
+    assert_eq!(
+        unsafe { ::std::ptr::addr_of!((*ptr).UpdateROCMProviderOptions) as usize - ptr as usize },
+        2048usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(OrtApi),
+            "::",
+            stringify!(UpdateROCMProviderOptions)
+        )
+    );
+    assert_eq!(
+        unsafe {
+            ::std::ptr::addr_of!((*ptr).GetROCMProviderOptionsAsString) as usize - ptr as usize
+        },
+        2056usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(OrtApi),
+            "::",
+            stringify!(GetROCMProviderOptionsAsString)
+        )
+    );
+    assert_eq!(
+        unsafe { ::std::ptr::addr_of!((*ptr).ReleaseROCMProviderOptions) as usize - ptr as usize },
+        2064usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(OrtApi),
+            "::",
+            stringify!(ReleaseROCMProviderOptions)
+        )
+    );
+    assert_eq!(
+        unsafe {
+            ::std::ptr::addr_of!((*ptr).CreateAndRegisterAllocatorV2) as usize - ptr as usize
+        },
+        2072usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(OrtApi),
+            "::",
+            stringify!(CreateAndRegisterAllocatorV2)
+        )
+    );
+    assert_eq!(
+        unsafe { ::std::ptr::addr_of!((*ptr).RunAsync) as usize - ptr as usize },
+        2080usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(OrtApi),
+            "::",
+            stringify!(RunAsync)
+        )
+    );
+    assert_eq!(
+        unsafe {
+            ::std::ptr::addr_of!((*ptr).UpdateTensorRTProviderOptionsWithValue) as usize
+                - ptr as usize
+        },
+        2088usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(OrtApi),
+            "::",
+            stringify!(UpdateTensorRTProviderOptionsWithValue)
+        )
+    );
+    assert_eq!(
+        unsafe {
+            ::std::ptr::addr_of!((*ptr).GetTensorRTProviderOptionsByName) as usize - ptr as usize
+        },
+        2096usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(OrtApi),
+            "::",
+            stringify!(GetTensorRTProviderOptionsByName)
+        )
+    );
+    assert_eq!(
+        unsafe {
+            ::std::ptr::addr_of!((*ptr).UpdateCUDAProviderOptionsWithValue) as usize - ptr as usize
+        },
+        2104usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(OrtApi),
+            "::",
+            stringify!(UpdateCUDAProviderOptionsWithValue)
+        )
+    );
+    assert_eq!(
+        unsafe {
+            ::std::ptr::addr_of!((*ptr).GetCUDAProviderOptionsByName) as usize - ptr as usize
+        },
+        2112usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(OrtApi),
+            "::",
+            stringify!(GetCUDAProviderOptionsByName)
+        )
+    );
+    assert_eq!(
+        unsafe { ::std::ptr::addr_of!((*ptr).KernelContext_GetResource) as usize - ptr as usize },
+        2120usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(OrtApi),
+            "::",
+            stringify!(KernelContext_GetResource)
+        )
+    );
 }
 pub const OrtCustomOpInputOutputCharacteristic_INPUT_OUTPUT_REQUIRED:
     OrtCustomOpInputOutputCharacteristic = 0;
@@ -12072,6 +12481,20 @@ pub struct OrtCustomOp {
     pub GetVariadicOutputHomogeneity: ::std::option::Option<
         unsafe extern "C" fn(op: *const OrtCustomOp) -> ::std::os::raw::c_int,
     >,
+    pub CreateKernelV2: ::std::option::Option<
+        unsafe extern "C" fn(
+            op: *const OrtCustomOp,
+            api: *const OrtApi,
+            info: *const OrtKernelInfo,
+            kernel: *mut *mut ::std::os::raw::c_void,
+        ) -> OrtStatusPtr,
+    >,
+    pub KernelComputeV2: ::std::option::Option<
+        unsafe extern "C" fn(
+            op_kernel: *mut ::std::os::raw::c_void,
+            context: *mut OrtKernelContext,
+        ) -> OrtStatusPtr,
+    >,
 }
 #[test]
 fn bindgen_test_layout_OrtCustomOp() {
@@ -12079,7 +12502,7 @@ fn bindgen_test_layout_OrtCustomOp() {
     let ptr = UNINIT.as_ptr();
     assert_eq!(
         ::std::mem::size_of::<OrtCustomOp>(),
-        136usize,
+        152usize,
         concat!("Size of: ", stringify!(OrtCustomOp))
     );
     assert_eq!(
@@ -12259,9 +12682,35 @@ fn bindgen_test_layout_OrtCustomOp() {
             stringify!(GetVariadicOutputHomogeneity)
         )
     );
+    assert_eq!(
+        unsafe { ::std::ptr::addr_of!((*ptr).CreateKernelV2) as usize - ptr as usize },
+        136usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(OrtCustomOp),
+            "::",
+            stringify!(CreateKernelV2)
+        )
+    );
+    assert_eq!(
+        unsafe { ::std::ptr::addr_of!((*ptr).KernelComputeV2) as usize - ptr as usize },
+        144usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(OrtCustomOp),
+            "::",
+            stringify!(KernelComputeV2)
+        )
+    );
 }
 extern "C" {
     pub fn OrtSessionOptionsAppendExecutionProvider_CUDA(
+        options: *mut OrtSessionOptions,
+        device_id: ::std::os::raw::c_int,
+    ) -> OrtStatusPtr;
+}
+extern "C" {
+    pub fn OrtSessionOptionsAppendExecutionProvider_ROCM(
         options: *mut OrtSessionOptions,
         device_id: ::std::os::raw::c_int,
     ) -> OrtStatusPtr;
