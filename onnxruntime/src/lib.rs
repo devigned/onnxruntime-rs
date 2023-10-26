@@ -164,7 +164,7 @@ lazy_static! {
         let base: *const sys::OrtApiBase = unsafe { sys::OrtGetApiBase() };
         assert_ne!(base, std::ptr::null(), "Failed to assert OrtApiBase ptr is not null.");
         let api = unsafe{ (*base).GetApi.unwrap()(sys::ORT_API_VERSION) };
-        assert_ne!(api, std::ptr::null(), "Failed to assert OrtApi ptr is not null.")
+        assert_ne!(api, std::ptr::null(), "Failed to assert OrtApi ptr is not null.");
         Arc::new(Mutex::new(AtomicPtr::new(api as *mut sys::OrtApi)))
     };
 }
