@@ -102,7 +102,8 @@ impl Environment {
 
             let cname = CString::new(name.clone()).unwrap();
 
-            let create_env_with_custom_logger = g_ort().CreateEnvWithCustomLogger.unwrap();
+            let g_ort = g_ort();
+            let create_env_with_custom_logger = g_ort.CreateEnvWithCustomLogger.unwrap();
             let status = {
                 unsafe {
                     create_env_with_custom_logger(
