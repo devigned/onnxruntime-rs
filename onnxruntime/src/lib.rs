@@ -166,7 +166,13 @@ lazy_static! {
         assert_ne!(base, std::ptr::null(), "Failed to assert OrtApiBase ptr is not null.");
         let version_ptr = unsafe { (*base).GetVersionString.unwrap()() };
         let version = char_p_to_string(version_ptr).unwrap();
-        let api = unsafe{ (*base).GetApi.unwrap()(sys::ORT_API_VERSION) };
+
+        #[cfg(target_os = "windows")]
+        let api = unsafe{ (*base).GetApi.unwrap()(10) };
+
+        #[cfg(not(target_os = "windows"))]
+        let api = unsafe{ (*base).GetApi.unwrap()(sys::ORT_API_VERSION)};
+
         assert_ne!(api, std::ptr::null(), "Failed to assert OrtApi ptr is not null. (ORT Version: {})", version);
         debug!("Lazily created ORT_API with ORT Version: {}.", version);
         Arc::new(Mutex::new(AtomicPtr::new(api as *mut sys::OrtApi)))

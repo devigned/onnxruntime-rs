@@ -52,8 +52,8 @@ fn main() {
     println!("Lib directory: {:?}", lib_dir);
 
     // Tell cargo to tell rustc to link onnxruntime shared library.
-    println!("cargo:rustc-link-lib=dylib=onnxruntime");
-    println!("cargo:rustc-link-search={}", lib_dir.display());
+    println!("cargo:rustc-link-lib=onnxruntime");
+    println!("cargo:rustc-link-search=native={}", lib_dir.display());
 
     let dir = env::var("CARGO_MANIFEST_DIR").unwrap();
     println!("cargo:rustc-link-search=native={}", Path::new(&dir).join("lib").display());
