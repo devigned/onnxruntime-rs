@@ -1,5 +1,7 @@
 #![allow(dead_code)]
 
+#[cfg(feature = "generate-bindings")]
+use bindgen::Formatter;
 use std::{
     borrow::Cow,
     env, fs,
@@ -7,15 +9,13 @@ use std::{
     path::{Path, PathBuf},
     str::FromStr,
 };
-#[cfg(feature = "generate-bindings")]
-use bindgen::Formatter;
 
 /// ONNX Runtime version
 ///
 /// WARNING: If version is changed, bindings for all platforms will have to be re-generated.
 ///          To do so, run this:
 ///              cargo build --package onnxruntime-sys --features generate-bindings
-const ORT_VERSION: &str = "1.15.0";
+const ORT_VERSION: &str = "1.16.1";
 
 /// Base Url from which to download pre-built releases/
 const ORT_RELEASE_BASE_URL: &str = "https://github.com/microsoft/onnxruntime/releases/download";
@@ -55,6 +55,9 @@ fn main() {
     println!("cargo:rustc-link-lib=onnxruntime");
     println!("cargo:rustc-link-search=native={}", lib_dir.display());
 
+    let dir = env::var("CARGO_MANIFEST_DIR").unwrap();
+    println!("cargo:rustc-link-search=native={}", Path::new(&dir).join("lib").display());
+
     println!("cargo:rerun-if-env-changed={}", ORT_ENV_STRATEGY);
     println!("cargo:rerun-if-env-changed={}", ORT_ENV_GPU);
     println!("cargo:rerun-if-env-changed={}", ORT_ENV_SYSTEM_LIB_LOCATION);
@@ -66,16 +69,6 @@ fn main() {
 fn generate_bindings(_include_dir: &Path) {
     println!("Bindings not generated automatically, using committed files instead.");
     println!("Enable with the 'generate-bindings' cargo feature.");
-
-    // NOTE: If bindings could not be be generated for Apple Sillicon M1, please uncomment the following
-    // let os = env::var("CARGO_CFG_TARGET_OS").expect("Unable to get TARGET_OS");
-    // let arch = env::var("CARGO_CFG_TARGET_ARCH").expect("Unable to get TARGET_ARCH");
-    // if os == "macos" && arch == "aarch64" {
-    //     panic!(
-    //         "OnnxRuntime {} bindings for Apple M1 are not available",
-    //         ORT_VERSION
-    //     );
-    // }
 }
 
 #[cfg(feature = "generate-bindings")]
@@ -165,7 +158,7 @@ fn extract_archive(filename: &Path, output: &Path) {
 }
 
 fn extract_tgz(filename: &Path, output: &Path) {
-    let file = fs::File::open(&filename).unwrap();
+    let file = fs::File::open(filename).unwrap();
     let buf = io::BufReader::new(file);
     let tar = flate2::read::GzDecoder::new(buf);
     let mut archive = tar::Archive::new(tar);
@@ -173,14 +166,14 @@ fn extract_tgz(filename: &Path, output: &Path) {
 }
 
 fn extract_zip(filename: &Path, outpath: &Path) {
-    let file = fs::File::open(&filename).unwrap();
+    let file = fs::File::open(filename).unwrap();
     let buf = io::BufReader::new(file);
     let mut archive = zip::ZipArchive::new(buf).unwrap();
     for i in 0..archive.len() {
         let mut file = archive.by_index(i).unwrap();
         #[allow(deprecated)]
         let outpath = outpath.join(file.sanitized_name());
-        if !(&*file.name()).ends_with('/') {
+        if !(file.name()).ends_with('/') {
             println!(
                 "File {} extracted to \"{}\" ({} bytes)",
                 i,
@@ -189,7 +182,7 @@ fn extract_zip(filename: &Path, outpath: &Path) {
             );
             if let Some(p) = outpath.parent() {
                 if !p.exists() {
-                    fs::create_dir_all(&p).unwrap();
+                    fs::create_dir_all(p).unwrap();
                 }
             }
             let mut outfile = fs::File::create(&outpath).unwrap();
@@ -204,6 +197,7 @@ trait OnnxPrebuiltArchive {
 
 #[derive(Debug)]
 enum Architecture {
+    X64,
     X86,
     X86_64,
     Arm,
@@ -215,6 +209,7 @@ impl FromStr for Architecture {
 
     fn from_str(s: &str) -> Result<Self, Self::Err> {
         match s.to_lowercase().as_str() {
+            "x64" => Ok(Architecture::X64),
             "x86" => Ok(Architecture::X86),
             "x86_64" => Ok(Architecture::X86_64),
             "arm" => Ok(Architecture::Arm),
@@ -227,8 +222,9 @@ impl FromStr for Architecture {
 impl OnnxPrebuiltArchive for Architecture {
     fn as_onnx_str(&self) -> Cow<str> {
         match self {
+            Architecture::X64 => Cow::from("x64"),
             Architecture::X86 => Cow::from("x86"),
-            Architecture::X86_64 => Cow::from("x64"),
+            Architecture::X86_64 => Cow::from("x86_64"),
             Architecture::Arm => Cow::from("arm"),
             Architecture::Arm64 => Cow::from("arm64"),
         }
@@ -312,38 +308,42 @@ struct Triplet {
 impl OnnxPrebuiltArchive for Triplet {
     fn as_onnx_str(&self) -> Cow<str> {
         match (&self.os, &self.arch, &self.accelerator) {
-            // onnxruntime-win-x86-1.15.0.zip
-            // onnxruntime-win-x64-1.15.0.zip
-            // onnxruntime-win-arm-1.15.0.zip
-            // onnxruntime-win-arm64-1.15.0.zip
-            // onnxruntime-linux-x64-1.15.0.tgz
-            // onnxruntime-osx-x64-1.15.0.tgz
-            // onnxruntime-osx-arm64-1.15.0.tgz
+            // onnxruntime-win-x86-1.16.1.zip
+            // onnxruntime-win-arm-1.16.1.zip
+            // onnxruntime-win-arm64-1.16.1.zip
+            // onnxruntime-osx-x64_86-1.16.1.tgz
+            // onnxruntime-osx-arm64-1.16.1.tgz
             (Os::Windows, Architecture::X86, Accelerator::None)
-            | (Os::Windows, Architecture::X86_64, Accelerator::None)
             | (Os::Windows, Architecture::Arm, Accelerator::None)
             | (Os::Windows, Architecture::Arm64, Accelerator::None)
-            | (Os::Linux, Architecture::X86_64, Accelerator::None)
             | (Os::MacOs, Architecture::X86_64, Accelerator::None)
             | (Os::MacOs, Architecture::Arm64, Accelerator::None) => Cow::from(format!(
                 "{}-{}",
                 self.os.as_onnx_str(),
                 self.arch.as_onnx_str()
             )),
-            // onnxruntime-win-gpu-x64-1.15.0.zip
+            // onnxruntime-win-x64-1.16.1.zip
+            // onnxruntime-linux-x64-1.16.1.tgz
+            (Os::Windows, Architecture::X86_64, Accelerator::None)
+            | (Os::Linux, Architecture::X86_64, Accelerator::None) => Cow::from(format!(
+                "{}-{}",
+                self.os.as_onnx_str(),
+                Architecture::X64.as_onnx_str(),
+            )),
+            // onnxruntime-win-gpu-x64-1.16.1.zip
             // Note how this one is inverted from the linux one next
             (Os::Windows, Architecture::X86_64, Accelerator::Gpu) => Cow::from(format!(
                 "{}-{}-{}",
                 self.os.as_onnx_str(),
+                Architecture::X64.as_onnx_str(),
                 self.accelerator.as_onnx_str(),
-                self.arch.as_onnx_str(),
             )),
-            // onnxruntime-linux-x64-gpu-1.15.0.tgz
+            // onnxruntime-linux-x64-gpu-1.16.1.tgz
             // Note how this one is inverted from the windows one above
             (Os::Linux, Architecture::X86_64, Accelerator::Gpu) => Cow::from(format!(
                 "{}-{}-{}",
                 self.os.as_onnx_str(),
-                self.arch.as_onnx_str(),
+                Architecture::X64.as_onnx_str(),
                 self.accelerator.as_onnx_str(),
             )),
             _ => {
@@ -391,6 +391,8 @@ fn prepare_libort_dir_prebuilt() -> PathBuf {
     let downloaded_file = out_dir.join(&prebuilt_archive);
 
     println!("cargo:rerun-if-changed={}", downloaded_file.display());
+    println!("cargo:rustc-link-lib=dylib=onnxruntime");
+    println!("cargo:rustc-link-search={}", out_dir.display());
 
     if !downloaded_file.exists() {
         println!("Creating directory {:?}", out_dir);

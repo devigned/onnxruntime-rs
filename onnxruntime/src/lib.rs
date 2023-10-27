@@ -151,6 +151,7 @@ pub mod tensor;
 // Re-export
 pub use error::{OrtApiError, OrtError, Result};
 use sys::OnnxEnumInt;
+use tracing::debug;
 
 // Re-export ndarray as it's part of the public API anyway
 pub use ndarray;
@@ -162,10 +163,19 @@ lazy_static! {
     //     } as *mut sys::OrtApi)));
     static ref G_ORT_API: Arc<Mutex<AtomicPtr<sys::OrtApi>>> = {
         let base: *const sys::OrtApiBase = unsafe { sys::OrtGetApiBase() };
-        assert_ne!(base, std::ptr::null());
-        let get_api: extern_system_fn!{ unsafe fn(u32) -> *const onnxruntime_sys::OrtApi } =
-            unsafe { (*base).GetApi.unwrap() };
-        let api: *const sys::OrtApi = unsafe { get_api(sys::ORT_API_VERSION) };
+        assert_ne!(base, std::ptr::null(), "Failed to assert OrtApiBase ptr is not null.");
+        let version_ptr = unsafe { (*base).GetVersionString.unwrap()() };
+        let version = char_p_to_string(version_ptr).unwrap();
+
+        // TODO(dj): remove if we can resolve Windows linking issue
+        // #[cfg(target_os = "windows")]
+        // let api = unsafe{ (*base).GetApi.unwrap()(10) };
+        //
+        // #[cfg(not(target_os = "windows"))]
+        let api = unsafe{ (*base).GetApi.unwrap()(sys::ORT_API_VERSION)};
+
+        assert_ne!(api, std::ptr::null(), "Failed to assert OrtApi ptr is not null. (ORT Version: {})", version);
+        debug!("Lazily created ORT_API with ORT Version: {}.", version);
         Arc::new(Mutex::new(AtomicPtr::new(api as *mut sys::OrtApi)))
     };
 }
@@ -499,9 +509,9 @@ impl<T: Utf8Data> TypeToTensorElementDataType for T {
 pub enum AllocatorType {
     // Invalid = sys::OrtAllocatorType::Invalid as i32,
     /// Device allocator
-    Device = sys::OrtAllocatorType_OrtDeviceAllocator as i32,
+    Device = sys::OrtAllocatorType_OrtDeviceAllocator,
     /// Arena allocator
-    Arena = sys::OrtAllocatorType_OrtArenaAllocator as i32,
+    Arena = sys::OrtAllocatorType_OrtArenaAllocator,
 }
 
 impl From<AllocatorType> for sys::OrtAllocatorType {
@@ -526,7 +536,7 @@ pub enum MemType {
     // CPUOutput = sys::OrtMemType::OrtMemTypeCPUOutput as i32,
     // CPU = sys::OrtMemType::OrtMemTypeCPU as i32,
     /// Default memory type
-    Default = sys::OrtMemType_OrtMemTypeDefault as i32,
+    Default = sys::OrtMemType_OrtMemTypeDefault,
 }
 
 impl From<MemType> for sys::OrtMemType {

@@ -404,10 +404,8 @@ impl<'a> Session<'a> {
             .map(|output| output.name.clone())
             .map(|n| CString::new(n).unwrap())
             .collect();
-        let output_names_ptr: Vec<*const i8> = output_names_cstring
-            .iter()
-            .map(|n| n.as_ptr() as *const i8)
-            .collect();
+        let output_names_ptr: Vec<*const i8> =
+            output_names_cstring.iter().map(|n| n.as_ptr()).collect();
 
         let mut output_tensor_extractors_ptrs: Vec<*mut sys::OrtValue> =
             vec![std::ptr::null_mut(); self.outputs.len()];
@@ -580,10 +578,10 @@ unsafe fn get_tensor_dimensions(
     let status = g_ort().GetDimensionsCount.unwrap()(tensor_info_ptr, &mut num_dims);
     status_to_result(status).map_err(OrtError::GetDimensionsCount)?;
     (num_dims != 0)
-        .then(|| ())
+        .then_some(())
         .ok_or(OrtError::InvalidDimensions)?;
 
-    let mut node_dims: Vec<i64> = vec![0; num_dims as usize];
+    let mut node_dims: Vec<i64> = vec![0; num_dims];
     let status = g_ort().GetDimensions.unwrap()(
         tensor_info_ptr,
         node_dims.as_mut_ptr(), // FIXME: UB?
@@ -617,7 +615,7 @@ mod dangerous {
         let status = unsafe { f(session_ptr, &mut num_nodes) };
         status_to_result(status).map_err(OrtError::InOutCount)?;
         assert_null_pointer(status, "SessionStatus")?;
-        (num_nodes != 0).then(|| ()).ok_or_else(|| {
+        (num_nodes != 0).then_some(()).ok_or_else(|| {
             OrtError::InOutCount(OrtApiError::Msg("No nodes in model".to_owned()))
         })?;
         Ok(num_nodes)
@@ -721,7 +719,7 @@ mod dangerous {
             unsafe { g_ort().GetTensorElementType.unwrap()(tensor_info_ptr, &mut type_sys) };
         status_to_result(status).map_err(OrtError::TensorElementType)?;
         (type_sys != sys::ONNXTensorElementDataType_ONNX_TENSOR_ELEMENT_DATA_TYPE_UNDEFINED)
-            .then(|| ())
+            .then_some(())
             .ok_or(OrtError::UndefinedTensorElementType)?;
         // This transmute should be safe since its value is read from GetTensorElementType which we must trust.
         let io_type: TensorElementDataType = unsafe { std::mem::transmute(type_sys) };
